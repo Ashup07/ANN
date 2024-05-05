@@ -1,0 +1,16 @@
+import numpy as np
+def l_t_g(dot,T):
+    if dot>=T:
+        return 1
+    else:
+        return 0
+input_table=np.array([
+    [0,0],[0,1],[1,0],[1,1]
+])
+print(f'Input Values:{input_table}')
+weights=[1,-1]
+dot_product=input_table@weights  
+T=1
+for i in range(0,4):
+    activation =l_t_g(dot_product[i],T)
+    print(f'Activation :{activation}')

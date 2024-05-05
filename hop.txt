@@ -1,0 +1,19 @@
+class Hopfield:
+    def __init__(self,n_neuron):
+        self.w=np.zeros((n_neuron,n_neuron))
+    def train(self,patterns):
+        for pattern in patterns:
+            self.w+=np.outer(pattern,pattern)
+            np.fill_diagonal(self.w,0)
+    def Predict(self,pattern):
+        energy=-0.5*((pattern@self.w)@pattern)
+        return np.sign((pattern@self.w)+energy)
+
+patterns=np.array([[1,1,-1,-1],[-1,-1,1,1],[1,-1,1,-1],[-1,1,-1,1]])
+n_neuron=4
+network=Hopfield(n_neuron)
+network.train(patterns)
+for i in patterns:
+    predict=network.Predict(i)
+    print(i)
+    print(predict)

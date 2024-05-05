@@ -1,0 +1,33 @@
+class Perceptron:
+    def __init__(self,input_size=10,lr=0.1):
+        self.W=np.zeros(input_size+1)
+        self.lr=lr
+    def activation_fn(self,X):
+        return 1 if X>=0 else 0
+    def Preprocessing(self,number):
+        bin_rep=bin(number)[2:].zfill(10)
+        return [int(bits) for bits in bin_rep]
+    def Predict(self,x):
+        x=self.Preprocessing(x)
+        X=np.insert(x,0,1)
+        z=self.W.T.dot(X)
+        a=self.activation_fn(z)
+        return a
+    def train(self,X,Y,epochs):
+        for _ in range(epochs):
+            for i in range(Y.shape[0]):
+                x=X[i]
+                target=Y[i]
+                output=self.Predict(x)
+                error=target-output
+                self.W=self.W+self.lr*error*np.insert(self.Preprocessing(x),0,1)
+            
+X=np.array([0,1,2,3,4,5,6,7,8,9])
+Y=np.array([0,1,0,1,0,1,0,1,0,1])
+perceptron=Perceptron()
+perceptron.train(X,Y,epochs=100)
+x_test=np.array([0,1,2,3,4,5,6,7,8,9])
+for x in x_test:
+    prediction=perceptron.Predict(x)
+    if prediction ==0:
+        print(f"Number:{x}")

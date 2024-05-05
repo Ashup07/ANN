@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+def Tanh(x):
+    return np.tanh(x)
+def Relu(x):
+    return np.maximum(0,x)
+def Softmax(x):
+    return np.exp(x)/np.sum(np.exp(x))
+x=np.linspace(-10,10,100)
+sig=sigmoid(x)
+plt.plot(x,sig)
+plt.title("Sigmoid Activation Function")
+plt.grid()
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.show()
